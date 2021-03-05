@@ -58,6 +58,31 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDc-PC-Ry5">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPG-DD-hT6">
+                                <rect key="frame" x="0.0" y="816" width="414" height="80"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bBX-w7-jPP">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="teh-dN-iRr">
+                                            <rect key="frame" x="22" y="13" width="377" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="red"/>
+                                                <segment title="blue"/>
+                                                <segment title="green"/>
+                                                <segment title="yellow"/>
+                                                <segment title="purple"/>
+                                                <segment title="orange"/>
+                                            </segments>
+                                        </segmentedControl>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="0K5-tQ-9AK"/>
+                                </constraints>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Sj6-HX-oD7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -65,18 +90,22 @@
                             <constraint firstItem="MDc-PC-Ry5" firstAttribute="leading" secondItem="Sj6-HX-oD7" secondAttribute="leading" id="0WQ-OX-dFu"/>
                             <constraint firstAttribute="bottom" secondItem="MDc-PC-Ry5" secondAttribute="bottom" id="1qj-6D-Aky"/>
                             <constraint firstItem="Sj6-HX-oD7" firstAttribute="trailing" secondItem="MDc-PC-Ry5" secondAttribute="trailing" id="EDY-Hc-S2L"/>
+                            <constraint firstItem="fPG-DD-hT6" firstAttribute="leading" secondItem="Sj6-HX-oD7" secondAttribute="leading" id="b39-pC-0Kh"/>
+                            <constraint firstItem="Sj6-HX-oD7" firstAttribute="trailing" secondItem="fPG-DD-hT6" secondAttribute="trailing" id="dsD-R7-2hZ"/>
                             <constraint firstItem="MDc-PC-Ry5" firstAttribute="top" secondItem="X9E-HF-szQ" secondAttribute="top" id="hlH-UH-JuH"/>
+                            <constraint firstAttribute="bottom" secondItem="fPG-DD-hT6" secondAttribute="bottom" id="pL4-cs-Ea6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E61-VW-0SK"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="sceneView" destination="MDc-PC-Ry5" id="y5K-G3-iSQ"/>
+                        <outlet property="segmentedControl" destination="teh-dN-iRr" id="LXa-8G-eBm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-9t-R7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="893" y="114"/>
+            <point key="canvasLocation" x="892.75362318840587" y="113.83928571428571"/>
         </scene>
     </scenes>
     <resources>
