@@ -39,7 +39,7 @@ enum TargetColor: Int, CaseIterable {
     }
 }
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, ARSCNViewDelegate{
 
     @IBOutlet weak var sceneView: ARSCNView!
     
@@ -47,7 +47,10 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        sceneView.delegate = self
+        sceneView.scene.physicsWorld.contactDelegate = self
+        createTargets()
         let config = ARWorldTrackingConfiguration()
         sceneView.session.run(config)
         
@@ -59,7 +62,6 @@ class GameViewController: UIViewController {
         super.viewWillAppear(animated)
         
 //        segmentsSetup()
-        createTargets()
     }
     
     func createTargets(){
@@ -70,15 +72,15 @@ class GameViewController: UIViewController {
         lightNode.position = SCNVector3(x: 1.5, y: 1.5, z: 1.5)
         sceneView.scene.rootNode.addChildNode(lightNode)
         
-        for _ in 1...100 {
-            let box = SCNBox(width: 0.3, height: 0.3, length: 0.3, chamferRadius: 0)
-            let material = SCNMaterial()
-            let color = TargetColor.init(rawValue: Int.random(in: 0...5))?.color
-            material.diffuse.contents = color ?? UIColor.red
-            box.materials = [material]
-            let node = SCNNode(geometry: box)
+        for i in 1...100 {
+            let color = TargetColor.random
+            let node = TargetBox(color: color)
+            node.name = "Box №\(i)"
             node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             node.physicsBody?.isAffectedByGravity = false
+            node.physicsBody?.categoryBitMask = CollisionCategory.targetCategory.rawValue
+            print("\(node.name) with category \(node.physicsBody?.categoryBitMask) was created")
+            node.physicsBody?.contactTestBitMask = CollisionCategory.missileCategory.rawValue
             node.position = SCNVector3(randomFloat(min: -10, max: 10),randomFloat(min: -4, max: 5),randomFloat(min: -10, max: 10))
             let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
             let forever = SCNAction.repeatForever(action)
@@ -87,16 +89,20 @@ class GameViewController: UIViewController {
         }
     }
     
-    @objc func shoot() {
-        guard let color = TargetColor(rawValue: segmentedControl.selectedSegmentIndex)?.color else { return }
-        let (direction, position) = getUserVector()
-        let sphere = SCNSphere(radius: 0.1)
-        let material = SCNMaterial()
-        material.diffuse.contents = color
-        sphere.materials = [material]
-        let node = SCNNode(geometry: sphere)
+    func createMissile() -> Missile {
+        let color = TargetColor(rawValue: segmentedControl.selectedSegmentIndex)?.color ?? TargetColor.random
+        let node = Missile(color: color)
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         node.physicsBody?.isAffectedByGravity = false
+        node.physicsBody?.categoryBitMask = CollisionCategory.missileCategory.rawValue
+        node.physicsBody?.contactTestBitMask = CollisionCategory.targetCategory.rawValue
+        return node
+    }
+    
+    @objc func shoot() {
+        let node = createMissile()
+        node.name = "Missile"
+        let (direction, position) = getUserVector()
         node.position = position
         let nodeDirection  = SCNVector3(direction.x*4,direction.y*4,direction.z*4)
         node.physicsBody?.applyForce(nodeDirection, at: SCNVector3(0.1,0,0), asImpulse: true)
@@ -125,5 +131,43 @@ class GameViewController: UIViewController {
         return CGFloat.random(in: min...max)
     }
 
+}
 
+struct CollisionCategory: OptionSet {
+    let rawValue: Int
+    
+    static let missileCategory  = CollisionCategory(rawValue: 1 << 0)
+    static let targetCategory = CollisionCategory(rawValue: 1 << 1)
+    static let otherCategory = CollisionCategory(rawValue: 1 << 2)
+}
+
+extension GameViewController: SCNPhysicsContactDelegate {
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        print("Collision!! " + contact.nodeA.name! + " with category \(contact.nodeA.categoryBitMask) hit " + contact.nodeB.name! + " with category \(contact.nodeB.categoryBitMask)")
+        DispatchQueue.main.async {
+            if let a = contact.nodeA as? TargetBox,
+               let b = contact.nodeB as? Missile {
+                if a.color == b.color {
+                    if let explosion = SCNParticleSystem(named: "Explode", inDirectory: nil){
+                        a.addParticleSystem(explosion)
+                    }
+                    a.removeFromParentNode()
+                    b.removeFromParentNode()
+                } else {
+                    b.removeFromParentNode()
+                }
+            } else if let a = contact.nodeA as? Missile,
+                      let b = contact.nodeB as? TargetBox{
+                if a.color == b.color {
+                    if let explosion = SCNParticleSystem(named: "Explode", inDirectory: nil){
+                        b.addParticleSystem(explosion)
+                    }
+                    a.removeFromParentNode()
+                    b.removeFromParentNode()
+                } else {
+                    a.removeFromParentNode()
+                }
+            }
+        }
+    }
 }
