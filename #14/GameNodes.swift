@@ -9,6 +9,7 @@ import Foundation
 import SceneKit
 
 final class TargetBox: SCNNode {
+    
     var color: UIColor!
     
     convenience init(color: UIColor) {

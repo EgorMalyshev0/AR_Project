@@ -45,7 +45,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122" y="114"/>
+            <point key="canvasLocation" x="121.73913043478262" y="113.83928571428571"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="lcZ-lO-f55">
@@ -64,19 +64,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="teh-dN-iRr">
-                                            <rect key="frame" x="22" y="13" width="377" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="red"/>
-                                                <segment title="blue"/>
-                                                <segment title="green"/>
-                                                <segment title="yellow"/>
-                                                <segment title="purple"/>
-                                                <segment title="orange"/>
-                                            </segments>
-                                        </segmentedControl>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-I4-FtU">
+                                            <rect key="frame" x="15" y="10" width="384" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="VXM-sE-Npb"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ugf-I4-FtU" firstAttribute="centerX" secondItem="bBX-w7-jPP" secondAttribute="centerX" id="YLa-uj-zec"/>
+                                        <constraint firstItem="ugf-I4-FtU" firstAttribute="leading" secondItem="bBX-w7-jPP" secondAttribute="leading" constant="15" id="jee-vv-YEr"/>
+                                        <constraint firstItem="ugf-I4-FtU" firstAttribute="top" secondItem="bBX-w7-jPP" secondAttribute="top" constant="10" id="uoL-1Z-7z8"/>
+                                    </constraints>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="0K5-tQ-9AK"/>
@@ -99,8 +98,8 @@
                     <navigationItem key="navigationItem" id="E61-VW-0SK"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="parentView" destination="ugf-I4-FtU" id="Mhv-SB-iEG"/>
                         <outlet property="sceneView" destination="MDc-PC-Ry5" id="y5K-G3-iSQ"/>
-                        <outlet property="segmentedControl" destination="teh-dN-iRr" id="LXa-8G-eBm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-9t-R7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

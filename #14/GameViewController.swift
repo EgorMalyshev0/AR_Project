@@ -43,7 +43,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate{
 
     @IBOutlet weak var sceneView: ARSCNView!
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var parentView: UIView!
+    
+    var colorChangeView: ColorChangeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,12 +58,14 @@ class GameViewController: UIViewController, ARSCNViewDelegate{
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(shoot))
         sceneView.addGestureRecognizer(gestureRecognizer)
+        let view = ColorChangeView(frame: parentView.bounds)
+        parentView.addSubview(view)
+        colorChangeView = view
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        segmentsSetup()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        sceneView.session.pause()
     }
     
     func createTargets(){
@@ -76,10 +80,9 @@ class GameViewController: UIViewController, ARSCNViewDelegate{
             let color = TargetColor.random
             let node = TargetBox(color: color)
             node.name = "Box №\(i)"
-            node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+            node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
             node.physicsBody?.isAffectedByGravity = false
             node.physicsBody?.categoryBitMask = CollisionCategory.targetCategory.rawValue
-            print("\(node.name) with category \(node.physicsBody?.categoryBitMask) was created")
             node.physicsBody?.contactTestBitMask = CollisionCategory.missileCategory.rawValue
             node.position = SCNVector3(randomFloat(min: -10, max: 10),randomFloat(min: -4, max: 5),randomFloat(min: -10, max: 10))
             let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
@@ -90,7 +93,7 @@ class GameViewController: UIViewController, ARSCNViewDelegate{
     }
     
     func createMissile() -> Missile {
-        let color = TargetColor(rawValue: segmentedControl.selectedSegmentIndex)?.color ?? TargetColor.random
+        let color = colorChangeView.currentColor ?? TargetColor.random
         let node = Missile(color: color)
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         node.physicsBody?.isAffectedByGravity = false
@@ -119,14 +122,6 @@ class GameViewController: UIViewController, ARSCNViewDelegate{
         return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
     }
     
-//    func segmentsSetup(){
-//        for i in 0...5 {
-//            let color = TargetColor(rawValue: i)?.color ?? TargetColor.random
-//            let image = UIImage(systemName: "square.fill")?.withTintColor(color)
-//            segmentedControl.setImage(image, forSegmentAt: i)
-//        }
-//    }
-    
     func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
         return CGFloat.random(in: min...max)
     }
@@ -148,9 +143,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
             if let a = contact.nodeA as? TargetBox,
                let b = contact.nodeB as? Missile {
                 if a.color == b.color {
-                    if let explosion = SCNParticleSystem(named: "Explode", inDirectory: nil){
-                        a.addParticleSystem(explosion)
-                    }
                     a.removeFromParentNode()
                     b.removeFromParentNode()
                 } else {
@@ -159,9 +151,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
             } else if let a = contact.nodeA as? Missile,
                       let b = contact.nodeB as? TargetBox{
                 if a.color == b.color {
-                    if let explosion = SCNParticleSystem(named: "Explode", inDirectory: nil){
-                        b.addParticleSystem(explosion)
-                    }
                     a.removeFromParentNode()
                     b.removeFromParentNode()
                 } else {
