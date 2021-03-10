@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Yb0-Lh-gp4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Start Screen View Controller-->
+        <!--Game-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="StartScreenViewController" customModule="_14" customModuleProvider="target" sceneMemberID="viewController">
@@ -39,13 +39,72 @@
                             <constraint firstItem="BdY-ft-bMo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sxb-Kd-xPi"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Game" image="gamecontroller.fill" catalog="system" id="Nnq-Mj-4bQ"/>
                     <connections>
                         <outlet property="startButton" destination="BdY-ft-bMo" id="cxq-1q-jca"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121.73913043478262" y="113.83928571428571"/>
+            <point key="canvasLocation" x="1032" y="-285"/>
+        </scene>
+        <!--Ruler-->
+        <scene sceneID="jvJ-BL-rnq">
+            <objects>
+                <viewController id="7Ml-QU-45b" customClass="RulerViewController" customModule="_14" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b9V-G0-J8V">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0GZ-it-osh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                            </arView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3BV-tT-8ex">
+                                <rect key="frame" x="207" y="758" width="0.0" height="35"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gdQ-Y5-fkx">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD7-Vn-Abe">
+                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="SD7-Vn-Abe" firstAttribute="leading" secondItem="gdQ-Y5-fkx" secondAttribute="leading" id="6WP-xm-5WJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="SD7-Vn-Abe" secondAttribute="trailing" id="7mE-ZO-1pW"/>
+                                        <constraint firstAttribute="bottom" secondItem="SD7-Vn-Abe" secondAttribute="bottom" id="9Y5-8V-WkB"/>
+                                        <constraint firstItem="SD7-Vn-Abe" firstAttribute="top" secondItem="gdQ-Y5-fkx" secondAttribute="top" id="aam-YJ-K7D"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="V5H-DF-e8K"/>
+                                </constraints>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="laE-1I-FXz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0GZ-it-osh" firstAttribute="top" secondItem="b9V-G0-J8V" secondAttribute="top" id="3nH-EW-lBK"/>
+                            <constraint firstItem="laE-1I-FXz" firstAttribute="bottom" secondItem="0GZ-it-osh" secondAttribute="bottom" id="6HN-U3-sLf"/>
+                            <constraint firstItem="3BV-tT-8ex" firstAttribute="centerX" secondItem="b9V-G0-J8V" secondAttribute="centerX" id="GK6-gO-Rvc"/>
+                            <constraint firstItem="laE-1I-FXz" firstAttribute="bottom" secondItem="3BV-tT-8ex" secondAttribute="bottom" constant="20" id="j7T-RS-oWl"/>
+                            <constraint firstItem="laE-1I-FXz" firstAttribute="trailing" secondItem="0GZ-it-osh" secondAttribute="trailing" id="wOz-lZ-amc"/>
+                            <constraint firstItem="0GZ-it-osh" firstAttribute="leading" secondItem="laE-1I-FXz" secondAttribute="leading" id="xny-UC-RxI"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Ruler" image="ruler.fill" catalog="system" id="FXM-x9-0PT"/>
+                    <connections>
+                        <outlet property="arView" destination="0GZ-it-osh" id="heC-to-Uij"/>
+                        <outlet property="distanceLabel" destination="SD7-Vn-Abe" id="bLO-Ud-yDF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Er-d6-Nx5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1032" y="431"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="lcZ-lO-f55">
@@ -104,10 +163,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fSw-9t-R7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892.75362318840587" y="113.83928571428571"/>
+            <point key="canvasLocation" x="1933" y="-285"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="GnS-LV-rPf">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Yb0-Lh-gp4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BhJ-nu-CK8">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="h1W-gQ-ADL"/>
+                        <segue destination="7Ml-QU-45b" kind="relationship" relationship="viewControllers" id="52E-US-Dhp"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bJ9-VF-0av" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121.73913043478262" y="113.83928571428571"/>
         </scene>
     </scenes>
     <resources>
+        <image name="gamecontroller.fill" catalog="system" width="128" height="80"/>
+        <image name="ruler.fill" catalog="system" width="128" height="57"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
