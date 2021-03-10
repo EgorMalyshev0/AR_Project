@@ -17,6 +17,7 @@
 		DE24D23C25F3942400629B0D /* GameNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE24D23B25F3942400629B0D /* GameNodes.swift */; };
 		DE25DAD725F76357007D385D /* ColorChangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE25DAD625F76357007D385D /* ColorChangeView.xib */; };
 		DE9BB1F225F766980085CC23 /* ColorChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9BB1F125F766980085CC23 /* ColorChangeView.swift */; };
+		DE9CBFF425F9073B00BA39B1 /* Target Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CBFF325F9073B00BA39B1 /* Target Color.swift */; };
 		DEE6241425F7C82100444EBA /* RulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE6241325F7C82100444EBA /* RulerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		DE24D23B25F3942400629B0D /* GameNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNodes.swift; sourceTree = "<group>"; };
 		DE25DAD625F76357007D385D /* ColorChangeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorChangeView.xib; sourceTree = "<group>"; };
 		DE9BB1F125F766980085CC23 /* ColorChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChangeView.swift; sourceTree = "<group>"; };
+		DE9CBFF325F9073B00BA39B1 /* Target Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Target Color.swift"; sourceTree = "<group>"; };
 		DEE6241325F7C82100444EBA /* RulerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,18 +70,43 @@
 			children = (
 				DE12A31F25EFC59E00AC28B2 /* AppDelegate.swift */,
 				DE12A32125EFC59E00AC28B2 /* SceneDelegate.swift */,
-				DE12A32325EFC59E00AC28B2 /* StartScreenViewController.swift */,
-				DE12A33825EFCDD800AC28B2 /* GameViewController.swift */,
-				DEE6241325F7C82100444EBA /* RulerViewController.swift */,
-				DE24D23B25F3942400629B0D /* GameNodes.swift */,
-				DE12A32525EFC59E00AC28B2 /* Main.storyboard */,
-				DE25DAD625F76357007D385D /* ColorChangeView.xib */,
-				DE9BB1F125F766980085CC23 /* ColorChangeView.swift */,
+				DEBE938125F9085500D84128 /* Models */,
+				DEBE937F25F9081500D84128 /* Controller */,
+				DE9CBFF625F9076F00BA39B1 /* Common UI */,
 				DE12A32825EFC5A100AC28B2 /* Assets.xcassets */,
+				DE12A32525EFC59E00AC28B2 /* Main.storyboard */,
 				DE12A32A25EFC5A100AC28B2 /* LaunchScreen.storyboard */,
 				DE12A32D25EFC5A100AC28B2 /* Info.plist */,
 			);
 			path = "#14";
+			sourceTree = "<group>";
+		};
+		DE9CBFF625F9076F00BA39B1 /* Common UI */ = {
+			isa = PBXGroup;
+			children = (
+				DE25DAD625F76357007D385D /* ColorChangeView.xib */,
+				DE9BB1F125F766980085CC23 /* ColorChangeView.swift */,
+			);
+			path = "Common UI";
+			sourceTree = "<group>";
+		};
+		DEBE937F25F9081500D84128 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DE12A32325EFC59E00AC28B2 /* StartScreenViewController.swift */,
+				DE12A33825EFCDD800AC28B2 /* GameViewController.swift */,
+				DEE6241325F7C82100444EBA /* RulerViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DEBE938125F9085500D84128 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DE9CBFF325F9073B00BA39B1 /* Target Color.swift */,
+				DE24D23B25F3942400629B0D /* GameNodes.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +183,7 @@
 				DE9BB1F225F766980085CC23 /* ColorChangeView.swift in Sources */,
 				DE12A33925EFCDD800AC28B2 /* GameViewController.swift in Sources */,
 				DE12A32425EFC59E00AC28B2 /* StartScreenViewController.swift in Sources */,
+				DE9CBFF425F9073B00BA39B1 /* Target Color.swift in Sources */,
 				DE12A32025EFC59E00AC28B2 /* AppDelegate.swift in Sources */,
 				DE12A32225EFC59E00AC28B2 /* SceneDelegate.swift in Sources */,
 				DEE6241425F7C82100444EBA /* RulerViewController.swift in Sources */,
