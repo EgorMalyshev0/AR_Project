@@ -56,9 +56,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0GZ-it-osh">
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUr-bx-IdJ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                            </arView>
+                            </arscnView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3BV-tT-8ex">
                                 <rect key="frame" x="207" y="758" width="0.0" height="35"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gdQ-Y5-fkx">
@@ -88,18 +88,18 @@
                         <viewLayoutGuide key="safeArea" id="laE-1I-FXz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0GZ-it-osh" firstAttribute="top" secondItem="b9V-G0-J8V" secondAttribute="top" id="3nH-EW-lBK"/>
-                            <constraint firstItem="laE-1I-FXz" firstAttribute="bottom" secondItem="0GZ-it-osh" secondAttribute="bottom" id="6HN-U3-sLf"/>
+                            <constraint firstItem="laE-1I-FXz" firstAttribute="bottom" secondItem="KUr-bx-IdJ" secondAttribute="bottom" id="3in-bL-cDz"/>
+                            <constraint firstItem="KUr-bx-IdJ" firstAttribute="top" secondItem="b9V-G0-J8V" secondAttribute="top" id="9BR-MG-Nwm"/>
+                            <constraint firstItem="KUr-bx-IdJ" firstAttribute="leading" secondItem="laE-1I-FXz" secondAttribute="leading" id="BvB-wV-7yW"/>
                             <constraint firstItem="3BV-tT-8ex" firstAttribute="centerX" secondItem="b9V-G0-J8V" secondAttribute="centerX" id="GK6-gO-Rvc"/>
+                            <constraint firstItem="laE-1I-FXz" firstAttribute="trailing" secondItem="KUr-bx-IdJ" secondAttribute="trailing" id="XAb-Fl-65k"/>
                             <constraint firstItem="laE-1I-FXz" firstAttribute="bottom" secondItem="3BV-tT-8ex" secondAttribute="bottom" constant="20" id="j7T-RS-oWl"/>
-                            <constraint firstItem="laE-1I-FXz" firstAttribute="trailing" secondItem="0GZ-it-osh" secondAttribute="trailing" id="wOz-lZ-amc"/>
-                            <constraint firstItem="0GZ-it-osh" firstAttribute="leading" secondItem="laE-1I-FXz" secondAttribute="leading" id="xny-UC-RxI"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ruler" image="ruler.fill" catalog="system" id="FXM-x9-0PT"/>
                     <connections>
-                        <outlet property="arView" destination="0GZ-it-osh" id="heC-to-Uij"/>
                         <outlet property="distanceLabel" destination="SD7-Vn-Abe" id="bLO-Ud-yDF"/>
+                        <outlet property="sceneView" destination="KUr-bx-IdJ" id="USl-3K-gFs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Er-d6-Nx5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
