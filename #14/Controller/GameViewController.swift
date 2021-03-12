@@ -11,7 +11,7 @@ import RealityKit
 class GameViewController: UIViewController, ARSCNViewDelegate{
 
     @IBOutlet weak var sceneView: ARSCNView!
-    @IBOutlet weak var effectView: UIVisualEffectView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var parentView: UIView!
     
     var colorChangeView: ColorChangeView!
@@ -24,8 +24,8 @@ class GameViewController: UIViewController, ARSCNViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        effectView.layer.cornerRadius = 6
-        effectView.clipsToBounds = true
+        blurView.layer.cornerRadius = 6
+        blurView.clipsToBounds = true
         
         sceneView.delegate = self
         sceneView.scene.physicsWorld.contactDelegate = self
@@ -118,24 +118,22 @@ struct CollisionCategory: OptionSet {
 
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-//        DispatchQueue.main.async {
-            if let a = contact.nodeA as? TargetBox,
-               let b = contact.nodeB as? Missile {
-                if a.color == b.color {
-                    a.removeFromParentNode()
-                    b.removeFromParentNode()
-                } else {
-                    b.removeFromParentNode()
-                }
-            } else if let a = contact.nodeA as? Missile,
-                      let b = contact.nodeB as? TargetBox{
-                if a.color == b.color {
-                    a.removeFromParentNode()
-                    b.removeFromParentNode()
-                } else {
-                    a.removeFromParentNode()
-                }
+        if let a = contact.nodeA as? TargetBox,
+           let b = contact.nodeB as? Missile {
+            if a.color == b.color {
+                a.removeFromParentNode()
+                b.removeFromParentNode()
+            } else {
+                b.removeFromParentNode()
             }
-//        }
+        } else if let a = contact.nodeA as? Missile,
+                  let b = contact.nodeB as? TargetBox{
+            if a.color == b.color {
+                a.removeFromParentNode()
+                b.removeFromParentNode()
+            } else {
+                a.removeFromParentNode()
+            }
+        }
     }
 }

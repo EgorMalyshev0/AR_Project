@@ -10,21 +10,25 @@ import SceneKit
 
 class RulerViewController: UIViewController, ARSessionDelegate {
 
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    var virtualObjectAnchor: ARAnchor?
-    let virtualObjectAnchorName = "virtualObject"
     var virtualObject: SCNNode = {
-        let sphere = SCNSphere(radius: 0.01)
+        let sphere = SCNSphere(radius: 0.005)
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.red
         sphere.materials = [material]
         return SCNNode(geometry: sphere)
     }()
+    
+    var counter: Int = 0
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        blurView.layer.cornerRadius = 4
+        blurView.clipsToBounds = true
         
         sceneView.session.delegate = self
         gestureSetup()
@@ -53,62 +57,30 @@ class RulerViewController: UIViewController, ARSessionDelegate {
     
     @objc func viewTapped(_ sender: UITapGestureRecognizer){
         let location = sender.location(in: sceneView)
+        virtualObject.removeFromParentNode()
         if let query = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .any),
            let frame = sceneView.session.currentFrame,
            let firstResult = sceneView.session.raycast(query).first {
-                let cameraTransform = frame.camera.transform
-                let resultTransform = firstResult.worldTransform
-                let distance = simd_distance(cameraTransform.columns.3, resultTransform.columns.3)
-                print(distance)
-                let distanceString = distance.roundedToHundredthsString()
-                self.distanceLabel.text = distanceString + " m"
+            counter = 0
+            let cameraTransform = frame.camera.transform
+            let resultTransform = firstResult.worldTransform
+            let distance = simd_distance(cameraTransform.columns.3, resultTransform.columns.3)
+            let distanceString = distance.roundedToHundredthsString()
+            self.distanceLabel.text = distanceString + " m"
             
-            
+            let resultCoordinates = resultTransform.columns.3
+            virtualObject.position = SCNVector3(resultCoordinates.x, resultCoordinates.y, resultCoordinates.z)
+            sceneView.scene.rootNode.addChildNode(virtualObject)
+        } else if counter == 2 {
+            counter = 0
+            distanceLabel.text = "Try to move camera"
+        } else {
+            counter += 1
+            distanceLabel.text = "Try again"
         }
-        
-        
-//        if let existingAnchor = virtualObjectAnchor {
-//            sceneView.session.remove(anchor: existingAnchor)
-//        }
-//        virtualObjectAnchor = ARAnchor(name: virtualObjectAnchorName, transform: hitTestResult.worldTransform)
-        sceneView.session.add(anchor: virtualObjectAnchor!)
-//        anchorEntity?.removeFromParent()
-//        guard let frame = sceneView.session.currentFrame, let raycastResult = sceneView.raycast(from: location, allowing: .estimatedPlane, alignment: .any).first else {
-//            anchorEntity = nil
-//            distanceLabel.text = "Can't measure distance, try again"
-//            return
-//        }
-//        let camera = frame.camera.transform
-//        anchorEntity = AnchorEntity(world: raycastResult.worldTransform)
-//        if let anchor = anchorEntity {
-//            anchor.addChild(sphere(radius: 0.01, color: .red))
-//            sceneView.scene.addAnchor(anchor)
-//        }
-//        let distance = simd_distance(camera.columns.3, raycastResult.worldTransform.columns.3)
-//        let formatter = NumberFormatter()
-//        formatter.maximumFractionDigits = 2
-//        if let string = formatter.string(from: NSNumber(value: distance)){
-//            distanceLabel.text = string + " meters"
-//        }
     }
-    
-//    func sphere(radius: Float, color: UIColor) -> ModelEntity {
-//        let sphere = ModelEntity(mesh: .generateSphere(radius: radius), materials: [SimpleMaterial(color: color, isMetallic: false)])
-//        sphere.position.y = radius
-//        return sphere
-//    }
 }
 
-extension RulerViewController: ARSCNViewDelegate {
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard anchor.name == virtualObjectAnchorName
-            else { return }
-        if virtualObjectAnchor == nil {
-            virtualObjectAnchor = anchor
-        }
-        node.addChildNode(virtualObject)
-    }
-}
 extension Float {
     func roundedToHundredthsString() -> String {
         let formatter = NumberFormatter()
